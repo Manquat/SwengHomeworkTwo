@@ -2,12 +2,12 @@
  * Created by Gautier on 25/09/2015.
  */
 package ch.epfl.sweng.quizapp;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Encapsulates the data in a quiz question returned by the SwEng server.
@@ -15,12 +15,12 @@ package ch.epfl.sweng.quizapp;
  */
 public class QuizQuestion {
 
-    protected long ID;
-    protected String Owner;
-    protected String Question;
-    protected ArrayList<String> Answers;
-    protected int SolutionIndex;
-    protected ArrayList<String> Tags;
+    protected long id_;
+    protected String owner_;
+    protected String body_;
+    protected ArrayList<String> answers_;
+    protected int solutionIndex_;
+    protected ArrayList<String> tags_;
     /**
      * Creates a new QuizQuestion instance from the question elements provided
      * as arguments.
@@ -34,54 +34,54 @@ public class QuizQuestion {
     public QuizQuestion(long id, String owner, String body, List<String> answers,
                         int solutionIndex, List<String> tags) {
         // TODO
-        ID = id;
-        Owner = owner;
-        Question = body;
-        Answers.addAll(answers);
-        SolutionIndex = solutionIndex;
-        Tags.addAll(tags);
+        id_ = id;
+        owner_ = owner;
+        body_ = body;
+        answers_.addAll(answers);
+        solutionIndex_ = solutionIndex;
+        tags_.addAll(tags);
     }
 
     /**
      * Returns the question ID.
      */
     public long getID() {
-        return ID;
+        return id_;
     }
 
     /**
      * Returns the question owner.
      */
     public String getOwner() {
-        return Owner;
+        return owner_;
     }
 
     /**
      * Returns the question body.
      */
     public String getBody() {
-        return Question;
+        return body_;
     }
 
     /**
      * Returns a list of the question answers.
      */
     public List<String> getAnswers() {
-        return Answers;
+        return answers_;
     }
 
     /**
      * Returns the index of the solution in the answer list.
      */
     public int getSolutionIndex() {
-        return SolutionIndex;
+        return solutionIndex_;
     }
 
     /**
      * Returns a (possibly empty) list of question tags.
      */
     public List<String> getTags() {
-        return Tags;
+        return tags_;
     }
 
     /**
