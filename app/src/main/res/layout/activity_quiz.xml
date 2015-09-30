@@ -26,42 +26,50 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
+                android:text="@string/body_question"
                 android:id="@+id/questionBodyView"
                 android:layout_weight="1" />
 
-            <RadioButton
+            <RadioGroup
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/radioButton" />
+                android:layout_weight="0"
+                android:id="@+id/radioGroup">
 
-            <RadioButton
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/radioButton2" />
+                <RadioButton
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/answer_button1"
+                    android:id="@+id/radioButton1" />
 
-            <RadioButton
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/radioButton3" />
+                <RadioButton
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/answer_button2"
+                    android:id="@+id/radioButton2" />
 
-            <RadioButton
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/radioButton4" />
+                <RadioButton
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/answer_button3"
+                    android:id="@+id/radioButton3" />
+
+                <RadioButton
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/answer_button4"
+                    android:id="@+id/radioButton4" />
+            </RadioGroup>
 
         </LinearLayout>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="@string/next_button"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClickNextButton" />
 
     </LinearLayout>
 </RelativeLayout>

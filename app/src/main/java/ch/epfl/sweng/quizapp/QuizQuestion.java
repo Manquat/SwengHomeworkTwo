@@ -3,6 +3,7 @@
  */
 package ch.epfl.sweng.quizapp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -37,9 +38,9 @@ public class QuizQuestion {
         id_ = id;
         owner_ = owner;
         body_ = body;
-        answers_.addAll(answers);
+        answers_ = new ArrayList<>(answers);
         solutionIndex_ = solutionIndex;
-        tags_.addAll(tags);
+        tags_ = new ArrayList<>(tags);
     }
 
     /**
