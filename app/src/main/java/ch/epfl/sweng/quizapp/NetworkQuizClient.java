@@ -62,7 +62,6 @@ public class NetworkQuizClient implements QuizClient
         }
         catch (JSONException | IOException exception)
         {
-
             throw new QuizClientException(exception);
         }
 

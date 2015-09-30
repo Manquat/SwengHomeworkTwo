@@ -5,10 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="next_button">Next question</string>
     <string name="body_question">Default question ?</string>
-    <string name="answer_button1">The A response</string>
-    <string name="answer_button2">The B response</string>
-    <string name="answer_button3">The C response</string>
-    <string name="answer_button4">The D response</string>
+    <string name="answer_button">The A response</string>
     <string name="network_error_message">Error no network find ! Please verify your connectivity !</string>
     <string name="network_error_title">Error network !</string>
     <string name="ok">OK</string>

@@ -36,29 +36,6 @@
                 android:layout_weight="0"
                 android:id="@+id/radioGroup">
 
-                <RadioButton
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/answer_button1"
-                    android:id="@+id/radioButton1" />
-
-                <RadioButton
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/answer_button2"
-                    android:id="@+id/radioButton2" />
-
-                <RadioButton
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/answer_button3"
-                    android:id="@+id/radioButton3" />
-
-                <RadioButton
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/answer_button4"
-                    android:id="@+id/radioButton4" />
             </RadioGroup>
 
         </LinearLayout>
@@ -67,9 +44,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/next_button"
-            android:id="@+id/button"
+            android:id="@+id/nextButton"
             android:layout_gravity="center_horizontal"
-            android:onClick="onClickNextButton" />
+            android:onClick="onClickNextButton"
+            android:enabled="false" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -3,6 +3,8 @@ package ch.epfl.sweng.quizapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -11,16 +13,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
 
 public class QuizActivity extends AppCompatActivity {
 
     private TextView questionText_;
-    private RadioButton answerButton1_;
-    private RadioButton answerButton2_;
-    private RadioButton answerButton3_;
-    private RadioButton answerButton4_;
+    private RadioGroup answerGroup_;
+    private Button nextButton_;
 
     private QuizQuestion quizQuestion_;
 
@@ -30,10 +33,28 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         questionText_ = (TextView) findViewById(R.id.questionBodyView);
-        answerButton1_ = (RadioButton) findViewById((R.id.radioButton1));
-        answerButton2_ = (RadioButton) findViewById((R.id.radioButton2));
-        answerButton3_ = (RadioButton) findViewById((R.id.radioButton3));
-        answerButton4_ = (RadioButton) findViewById((R.id.radioButton4));
+        nextButton_ = (Button) findViewById(R.id.nextButton);
+
+        // initialize the RadioGroup
+        answerGroup_ = (RadioGroup) findViewById(R.id.radioGroup);
+        answerGroup_.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                RadioButton checkedButton = (RadioButton) findViewById(checkedId);
+                if (answerGroup_.indexOfChild(checkedButton) == quizQuestion_.getSolutionIndex()) //correct answer
+                {
+                    checkedButton.setTextColor(Color.GREEN);
+                    nextButton_.setEnabled(true);
+                } else // wrong answer
+                {
+                    checkedButton.setTextColor(Color.RED);
+                    checkedButton.setEnabled(false);
+                    checkedButton.setPaintFlags(checkedButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+            }
+        });
 
         connectToServer();
     }
@@ -114,10 +135,19 @@ public class QuizActivity extends AppCompatActivity {
     protected void refreshActivity()
     {
         questionText_.setText(quizQuestion_.getBody());
-        answerButton1_.setText(quizQuestion_.getAnswers().get(0));
-        answerButton2_.setText(quizQuestion_.getAnswers().get(1));
-        answerButton3_.setText(quizQuestion_.getAnswers().get(2));
-        answerButton4_.setText(quizQuestion_.getAnswers().get(3));
+
+        // the next button is again disable
+        nextButton_.setEnabled(false);
+
+        // clear the precedents container
+        answerGroup_.removeAllViews();
+
+        for (int i=0; i < quizQuestion_.getAnswers().size(); i++)
+        {
+            RadioButton tempButton = new RadioButton(this);
+            tempButton.setText(quizQuestion_.getAnswers().get(i));
+            answerGroup_.addView(tempButton);
+        }
     }
 
     @Override
