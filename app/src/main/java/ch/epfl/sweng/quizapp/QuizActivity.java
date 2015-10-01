@@ -1,8 +1,6 @@
 package ch.epfl.sweng.quizapp;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
@@ -10,13 +8,15 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class QuizActivity extends AppCompatActivity {
@@ -26,6 +26,8 @@ public class QuizActivity extends AppCompatActivity {
     private Button nextButton_;
 
     private QuizQuestion quizQuestion_;
+
+    private String url_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,15 @@ public class QuizActivity extends AppCompatActivity {
                 RadioButton checkedButton = (RadioButton) findViewById(checkedId);
                 if (answerGroup_.indexOfChild(checkedButton) == quizQuestion_.getSolutionIndex()) //correct answer
                 {
+                    for (int i=0; i < answerGroup_.getChildCount(); i++)
+                    {
+                        RadioButton tempRadioButton = (RadioButton) answerGroup_.getChildAt(i);
+                        tempRadioButton.setTextColor(Color.RED);
+                        tempRadioButton.setEnabled(false);
+                        tempRadioButton.setPaintFlags(tempRadioButton.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
                     checkedButton.setTextColor(Color.GREEN);
+                    checkedButton.setPaintFlags(checkedButton.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     nextButton_.setEnabled(true);
                 } else // wrong answer
                 {
@@ -56,14 +66,9 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        connectToServer();
-    }
+        url_ = getString(R.string.url);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_quiz, menu);
-        return true;
+        connectToServer();
     }
 
     public void onClickNextButton(View view)
@@ -78,22 +83,14 @@ public class QuizActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected())
         {
             // create a new thread that will connect to the server
-
-            new downloadFromServerTask().execute(new NetworkQuizClient("https://sweng-quiz.appspot.com/quizquestions/random", new DefaultNetworkProvider()));
+            new downloadFromServerTask().execute(new NetworkQuizClient(url_, new DefaultNetworkProvider()));
         }
         else
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setTitle(R.string.network_error_title)
-                    .setMessage(R.string.network_error_message)
-                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
-                    .show();
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, getString(R.string.network_error_toast), Toast.LENGTH_LONG);
+            toast.show();
+            nextButton_.setEnabled(true);
         }
     }
 
@@ -109,25 +106,34 @@ public class QuizActivity extends AppCompatActivity {
             }
             catch (QuizClientException quizException)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                /*ArrayList<String> tempAnswers = new ArrayList<>();
+                tempAnswers.add("Try again !");
 
-                builder.setTitle("QuizException")
-                        .setMessage(R.string.network_error_message)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                ArrayList<String> tempTags = new ArrayList<>();
+                tempTags.add("Error");
+                tempTags.add("JSON Parse");
 
-                            }
-                        })
-                        .show();
+                return new QuizQuestion(0000, "Manquat","Error while parsing the JSON", tempAnswers, 0, tempTags);*/
+
+                return null;
             }
-            return null;
         }
 
         @Override
         protected void onPostExecute(QuizQuestion quizQuestion)
         {
             quizQuestion_ = quizQuestion;
+
+            if (quizQuestion_ == null)
+            {
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, getString(R.string.network_error_toast), Toast.LENGTH_LONG);
+                toast.show();
+                nextButton_.setEnabled(true);
+
+                return;
+            }
+
             refreshActivity();
         }
     }
@@ -148,20 +154,5 @@ public class QuizActivity extends AppCompatActivity {
             tempButton.setText(quizQuestion_.getAnswers().get(i));
             answerGroup_.addView(tempButton);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

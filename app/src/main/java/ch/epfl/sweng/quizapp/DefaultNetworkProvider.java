@@ -3,11 +3,6 @@
  */
 package ch.epfl.sweng.quizapp;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.widget.TextView;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -42,6 +37,4 @@ public class DefaultNetworkProvider implements NetworkProvider {
         return urlConnection;*/
         return (HttpURLConnection) url.openConnection();
     }
-
-    // TODO
 }

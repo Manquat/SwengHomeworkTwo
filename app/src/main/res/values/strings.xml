@@ -4,9 +4,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="next_button">Next question</string>
-    <string name="body_question">Default question ?</string>
-    <string name="answer_button">The A response</string>
-    <string name="network_error_message">Error no network find ! Please verify your connectivity !</string>
-    <string name="network_error_title">Error network !</string>
-    <string name="ok">OK</string>
+    <string name="network_error_toast">Error retrieving question. Please try again.</string>
+    <string name="url">https://sweng-quiz.appspot.com/quizquestions/random</string>
 </resources>

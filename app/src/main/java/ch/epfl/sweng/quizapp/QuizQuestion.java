@@ -3,7 +3,6 @@
  */
 package ch.epfl.sweng.quizapp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -16,12 +15,12 @@ import org.json.JSONObject;
  */
 public class QuizQuestion {
 
-    protected long id_;
-    protected String owner_;
-    protected String body_;
-    protected ArrayList<String> answers_;
-    protected int solutionIndex_;
-    protected ArrayList<String> tags_;
+    protected final long id_;
+    protected final String owner_;
+    protected final String body_;
+    protected final ArrayList<String> answers_;
+    protected final int solutionIndex_;
+    protected final ArrayList<String> tags_;
     /**
      * Creates a new QuizQuestion instance from the question elements provided
      * as arguments.
@@ -34,7 +33,7 @@ public class QuizQuestion {
      */
     public QuizQuestion(long id, String owner, String body, List<String> answers,
                         int solutionIndex, List<String> tags) {
-        // TODO
+
         id_ = id;
         owner_ = owner;
         body_ = body;

@@ -18,8 +18,8 @@ import java.net.URL;
  */
 public class NetworkQuizClient implements QuizClient
 {
-    protected String serverUrl_;
-    protected NetworkProvider netProvider_;
+    private final String serverUrl_;
+    private final NetworkProvider netProvider_;
     /**
      * Creates a new NetworkQuizClient instance that communicates with a SwEng
      * server at a given location, through a {@link NetworkProvider} object.
@@ -67,6 +67,4 @@ public class NetworkQuizClient implements QuizClient
 
         return quizQuestion;
     }
-
-    // TODO
 }
