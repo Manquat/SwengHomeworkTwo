@@ -8,7 +8,7 @@ public final class Provider {
     private Provider()
     {}
 
-    static String url_ = "getString(R.string.url)";
+    static String url_ = "https://sweng-quiz.appspot.com/quizquestions/random";
     static protected NetworkProvider networkProvider_ = new DefaultNetworkProvider();
     static protected QuizClient quizClient_ = new NetworkQuizClient(url_, networkProvider_);
 

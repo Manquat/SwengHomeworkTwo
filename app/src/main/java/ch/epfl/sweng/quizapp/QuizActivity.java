@@ -27,6 +27,10 @@ public class QuizActivity extends AppCompatActivity {
 
     protected QuizQuestion quizQuestion_;
 
+    /**
+     * Instansiate the activity and fetch a question for the first using the connnectToServer function
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +71,20 @@ public class QuizActivity extends AppCompatActivity {
         connectToServer();
     }
 
+    /**
+     * Call when the user click on the next button,
+     * just call the connectToServer function
+     * @param view not used but necessary for been a listener
+     */
     public void onClickNextButton(View view)
     {
         connectToServer();
     }
 
+    /**
+     * Connect to the server to fetching the question
+     * Use an asynchronous task to avoid the freezing of the app
+     */
     protected void connectToServer()
     {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -93,6 +106,12 @@ public class QuizActivity extends AppCompatActivity {
     protected class downloadFromServerTask extends AsyncTask<QuizClient, Void, QuizQuestion>
     {
 
+        /**
+         * Contact the server from the QuizClient and cast the response in a QuizQuestion
+         * @param quizClients the quiz client used to fetching the question
+         * @return The quiz question return by the server, it would be null if the server is unreachable
+         * or return something wrong
+         */
         @Override
         protected QuizQuestion doInBackground(QuizClient... quizClients)
         {
@@ -102,19 +121,14 @@ public class QuizActivity extends AppCompatActivity {
             }
             catch (QuizClientException quizException)
             {
-                /*ArrayList<String> tempAnswers = new ArrayList<>();
-                tempAnswers.add("Try again !");
-
-                ArrayList<String> tempTags = new ArrayList<>();
-                tempTags.add("Error");
-                tempTags.add("JSON Parse");
-
-                return new QuizQuestion(0000, "Manquat","Error while parsing the JSON", tempAnswers, 0, tempTags);*/
-
                 return null;
             }
         }
 
+        /**
+         * Use the quizQuestion to refresh the activity accordingly
+         * @param quizQuestion The QuizQuestion that would be display
+         */
         @Override
         protected void onPostExecute(QuizQuestion quizQuestion)
         {
@@ -134,6 +148,9 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * refresh the Activity to match the question store in the quizQuestion attribute
+     */
     protected void refreshActivity()
     {
         questionText_.setText(quizQuestion_.getBody());

@@ -111,7 +111,6 @@ class TestQuizClient implements QuizClient
         ArrayList<String> defaultTags = new ArrayList<>();
         defaultTags.add("Tag 1");
 
-        QuizQuestion defaultQuiz = new QuizQuestion(0, "Manquat", "Testing question", defaultAnswers, 0, defaultTags);
-        return defaultQuiz;
+        return new QuizQuestion(0, "Manquat", "Testing question", defaultAnswers, 0, defaultTags);
     }
 }

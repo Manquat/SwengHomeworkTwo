@@ -15,12 +15,12 @@ import org.json.JSONObject;
  */
 public class QuizQuestion {
 
-    protected final long id_;
-    protected final String owner_;
-    protected final String body_;
-    protected final ArrayList<String> answers_;
-    protected final int solutionIndex_;
-    protected final ArrayList<String> tags_;
+    protected long id_;
+    protected String owner_;
+    protected String body_;
+    protected ArrayList<String> answers_;
+    protected int solutionIndex_;
+    protected ArrayList<String> tags_;
     /**
      * Creates a new QuizQuestion instance from the question elements provided
      * as arguments.
