@@ -21,13 +21,11 @@ import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
-    private TextView questionText_;
-    private RadioGroup answerGroup_;
-    private Button nextButton_;
+    protected TextView questionText_;
+    protected RadioGroup answerGroup_;
+    protected Button nextButton_;
 
-    private QuizQuestion quizQuestion_;
-
-    private String url_;
+    protected QuizQuestion quizQuestion_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +64,6 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        url_ = getString(R.string.url);
-
         connectToServer();
     }
 
@@ -83,7 +79,7 @@ public class QuizActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected())
         {
             // create a new thread that will connect to the server
-            new downloadFromServerTask().execute(new NetworkQuizClient(url_, new DefaultNetworkProvider()));
+            new downloadFromServerTask().execute(Provider.getQuizClient());
         }
         else
         {
@@ -94,15 +90,15 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    private class downloadFromServerTask extends AsyncTask<NetworkQuizClient, Void, QuizQuestion>
+    protected class downloadFromServerTask extends AsyncTask<QuizClient, Void, QuizQuestion>
     {
 
         @Override
-        protected QuizQuestion doInBackground(NetworkQuizClient... networkQuizClients)
+        protected QuizQuestion doInBackground(QuizClient... quizClients)
         {
             try
             {
-                return networkQuizClients[0].fetchRandomQuestion();
+                return quizClients[0].fetchRandomQuestion();
             }
             catch (QuizClientException quizException)
             {
